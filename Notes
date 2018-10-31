@@ -1,0 +1,1444 @@
+Setup
+Updating NodeJS: Go to nodejs.org and download the latest version - uninstall (all) installed versions 
+on your machine first.
+
+
+Updating npm:
+npm install -g npm
+Updating the CLI:
+npm uninstall -g angular-cli @angular/cli 
+Npm cache clean 
+npm install -g @angular/cli 
+npm start 
+
+
+Angular CLI 
+https://cli.angular.io/ and  https://github.com/angular/angular-cli/wiki
+Install Angular CLI : npm install -g @angular/cli
+
+
+ng new "my-project"
+cd my-project
+ng serve - Runs the server (be inside app folder)
+ng serve --host 0.0.0.0 --port 4201
+
+
+npm uninstall -g @angular/cli
+npm cache clean
+# if npm version is > 5 then use `npm cache verify` to avoid errors (or to avoid using --force)
+npm install -g @angular/cli@latest
+
+
+Generate Component (CLI)
+ng generate component <component name here>
+ng g component my-new-component # using the alias
+
+
+# components support relative path generation
+# if in the directory src/app/feature/ and you run
+ng g component new-cmp
+# your component will be generated in src/app/feature/new-cmp
+# but if you were to run
+ng g component ./newer-cmp
+# your component will be generated in src/app/newer-cmp
+# if in the directory src/app you can also run
+ng g component feature/new-cmp
+# and your component will be generated in src/app/feature/new-cmp
+
+
+CLI Shortcuts
+Scaffold Usage
+======== =====
+Component ng g component my-new-component
+Directive ng g directive my-new-directive
+Pipe  ng g pipe my-new-pipe
+Service ng g service my-new-service
+Class  ng g class my-new-class
+Guard  ng g guard my-new-guard
+Interface ng g interface my-new-interface
+Enum  ng g enum my-new-enum
+Module ng g module my-module
+ng g c "" --spec false = this won't create test file.
+
+
+FormsModule  
+Add FormsModule/ReactiveFormsModule to the imports[] array in ‘app.module.ts’ file.
+
+
+Note : If you don't have FormsModule in imports[] in AppModule , please do add it and also add an 
+import at the top of that file: 
+import { FormsModule,ReactiveFormsModule } from '@angular/forms'; 
+
+
+Common issues & solutions:
+1) Creation of a new project takes forever (longer than 3 minutes) : That happens on Windows from time to time => Try running the command line as administrator
+2) You get an EADDR error (Address already in use) : You might already have another ng serve process running - make sure to quit that or use ng serve --port ANOTHERPORT  to serve your project on a new port
+3) My changes are not reflected in the browser (App is not compiling) : Check if the window running ng serve  displays an error. If that's not the case, make sure you're using the latest CLI version and try restarting your CLI
+
+
+Running Ng Server
+ng serve in APP FOLDER
+E.g D:\Learning\Angular5\my-first-app\src\app>ng serve
+Import components from : import { Component } from '@angular/core'; (@ implies Module import)
+To use ngModel in html Import FormsModule in app.modules.ts file
+
+
+Installing Bootstrap
+npm install --save @bootstrap3
+In angular-cli.json file : add bootstrap reference from "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+
+
+<app-root> : This replaces all component HTMLs. This is default component in application.
+
+
+In main.ts = refer app.module.ts.
+Bootstrapping Angular : In Main.ts file, import AppModule (see bootstrapModule(AppModule))
+
+
+In app.module.ts = refer app.component.ts and bootstrap "AppComponent" and include "FormsModule" & "BrowserModule"
+
+
+Bootstrap array = This should include all the components that are required for ng during loading index.html. Module is collection of controllers.
+
+
+Import Angular Library
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http;
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import  {  catchError, map, tap } from 'rxjs/operators';
+Import  {  Directive } from "@angular/core";
+import { AppComponent } from './app.component';
+import { ViewChild,Input,Output,ElementRef,Component,OnInit,OnChanges,
+SimpleChanges,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,
+AfterViewChecked,OnDestroy } from "@angular/core"
+
+
+Selectors
+ 
+Attribute (use square brackets []) : 
+selector: '[app-selectoras-attribute]'
+<div app-selectoras-attribute></app-selectoras-attribute>
+CSS Class (use Dot) :
+selector: '.app-selectoras-class'
+<div class="app-selectoras-class"></div>
+Element (use as simple/default) :
+selector: 'app-selectoras-attribute'
+<app-selectoras-element></app-selectoras-attribute>
+
+
+Data binding
+Used to Send data from Component/class to View/template.
+String interpolation   : {{data}}
+Property Binding    : [property]="data";
+Event Binding    : (event)="updateServices($event)" (e.g input,click)
+Two-way data binding  : [(ngModel)] = "data"
+
+
+Property Binding
+Define some property and use that property in html (access data/variables from component in html)
+[disabled]="allowNewServer"  
+[src]="recipe.imagePath" 
+Note : simply declare the variable - in case of property binding. No interpolation required.
+
+
+Event binding
+Bind events defined in html in component.Handling events.
+<input type=”text” (input) = onUpdateServerName($event) />
+<input type=”submit” (click) = onClickAddServer($event) />
+<input type=”submit” (change) = onClickAddServer($event) />
+<input type=”submit” (blur) = onClickAddServer($event) />
+$event = gives data emitted with event. 
+$event.target.value -> returns value entered in input in component. 
+Note : For events, you don't bind to onclick but only to click (=> (click)).
+
+
+Two way binding
+Using both Property and Event binding at a time using 
+[(ngModel)] = "data"
+
+
+Note :  Make sure to have FormsModule from '@angular/core'
+ For Two-Way-Binding to work, you need to enable the ngModel directive. 
+This is done by adding the FormsModule  to the imports[]  array in the AppModule.
+You then also need to add the import from @angular/forms  in the app.module.ts file:
+  import { FormsModule } from '@angular/form
+
+
+Directives 
+Instructions to DOM.
+use @Directive ({
+selector : '[appTurnGreen]'  
+  })
+
+
+
+Structural : Changes structure on DOM. Adds/ Removes elements from the DOM.
+
+
+ngIf, ngSwitch
+
+
+Attribute : Changes the behavior of the DOM.
+
+
+ngForOf, ngClass, ngStyle
+
+<li 
+  [ngClass]="{odd : even % 2 !=0}"
+ [ngStyle]="{backgroundColor: red}">
+</li>
+
+
+In TS :
+Register this directive in app.module 'decleration' array.
+import {Directive} from "@angular/core";
+
+
+@Directive({
+ selector : [appBasicHighliter]  // Attribute type of selector
+})
+export BasicHighliter implements OnInit {
+ constructor (private highliter : ElementRef){
+  this.highliter.nativeElement.style.backgroundColor = 'green';
+ }
+}
+
+
+In Html :
+<p appBasicHighliter></p>
+
+
+*ngIf Directive
+*ngIf : It is Structural directive. It changes structure of DOM. It removes/adds html from the DOM and clears all its required objects
+ <span *ngIf="showCreateUserButton; else noServer">
+        User Created <br>Value : {{showCreateUserButton}}
+</span>
+
+
+<ng-template #noserver>
+        Click to create user.
+</ng-template>
+
+
+Attribute directive
+They work on attributes of elements. They don't add or remove elements, they only change the element they were placed. They just change the behavior of the element.
+E.g : ngStyle, ngFor, ngClass
+  <div *ngFor="let server of servers">
+   {{server}}
+  </div>
+
+
+@Input Directive
+Property & event binding can be also done on own components. Bind to custom properties and custom events. Emit own events.All properties of component are only accessible inside this component.
+
+
+To Make property bindable/accessible from outside use @Input Decorator.
+
+
+Parent : <app-server-element [ELEMENT]=""></app-server-element>
+
+
+Child : import {Input} from "@angular/core"
+export class CLASS implements OnInit {
+ @Input() ELEMENT : Type
+}
+
+
+Example :
+ Parent : <app-server-element [id]="control.id" [value]=’value’></app-server-element>
+
+
+Child : import {Input} from "@angular/core"
+export class ServerElementComponent implements OnInit {
+ @Input() id: string
+ @input() value :string
+}
+
+ Can also give alias names for the property : [ELEMENT] as below
+ @Input('srvElement') ELEMENT : Type 
+Note : In Parent component i.e app.component use alias name instead:
+<app-server-element [srvElement]="<write here function to lister the event triggered in app server component>"></app-server-element>
+
+
+@Output & EventEmitter
+Catch control data using $event by passing it to the function call. See Video 64
+Shares data from child to parent i.e. emit data from the child. Component Communication video 78
+Parent Component:
+Assign child’s event emitter to parent’s function/method i.e. call child’s Output name in parent on child element.
+import { Component } from '@angular/core';
+@Component({
+selector: 'app-parent',
+template: `
+Message: {{message}}
+<app-child (messageEvent)="receiveMessage($event)"></app-child>`
+})
+export class ParentComponent {
+message:string;
+receiveMessage($event) {
+this.message = $event
+}
+}
+Child Component: 
+Emit should be done from child component.
+import { Component, Output, EventEmitter } from '@angular/core';
+@Component({
+selector: 'app-child',
+template: `
+    <button (click)="sendMessage()">Send Message</button> `
+})
+export class ChildComponent {
+message: string = "Hello from Child component !!";
+@Output() messageEvent = new EventEmitter<string>();
+sendMessage() {
+  this.messageEvent.emit(this.message)
+}
+}
+ViewEncapsulation
+Any style applied for a particular component is applicable only to that component. This is against the CSS which is intentionally done by Angular.Use this to override styles in components. 
+@Component({
+ encapsulation : ViewEncapsulation.None
+ encapsulation : ViewEncapsulation.Native  
+ encapsulation : ViewEncapsulation.Emulated  
+})
+Note : ViewEncapsulation.Native uses shadow dom technology
+
+
+Property
+Description
+Emulated
+Emulate Native scoping of styles by adding an attribute containing surrogate id to the Host Element and pre-processing the style rules provided via styles or styleUrls, and adding the new Host Element attribute to all selectors.This is the default option.
+Native
+Use the native encapsulation mechanism of the renderer.
+For the DOM this means using Shadow DOM and creating a ShadowRoot for Component's Host Element.
+None
+Don't provide any template or style encapsulation.
+
+
+Local Ref Variables
+To use variables in within template (html). Use #<variable name>. This object gives all properties of element pointed.
+
+
+In HTML:
+Enter Service Name : <input type="text" #serviceName />
+{{serviceName.value}}
+<button (click)="onAddServer(serviceName)" >Submit Data</button>
+
+
+In TS :
+onAddServer(serviceNameInput : HTMLInputElement) {
+ console.log(serverNameInput.value);
+}
+
+
+@ViewChild
+ViewChild allows a one component to be injected into another, giving the parent access to its attributes and functions of Child. 
+
+Child won’t be available until after view has been initialized. 
+
+
+We need to implement AfterViewInit lifecycle hook in parent to receive data from Child.
+
+Parent Component:
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { ChildComponent } from "../child/child.component";
+@Component({
+ selector: 'app-parent',
+ template: `Message: {{message}}
+    <app-child></app-child>`
+})
+export class ParentComponent implements AfterViewInit {
+   @ViewChild(ChildComponent) child : ChildComponent;
+message:string;
+ngAfterViewInit() {
+this.message = this.child.message
+}
+}
+Child Component :
+import { Component} from '@angular/core';
+@Component({
+selector: 'app-child',
+template: ` `
+})
+export class ChildComponent {
+message: string = "Hola from child !!"
+}
+Component Communication 
+
+
+Using ngContent
+<ng-content></ng-content>
+<ngTemplate></ngTemplate>
+
+
+Life Cycle Events
+Angular goes through certain phases of life cycles.
+
+
+import {
+ViewChild,Input,Output,ElementRef,Component,OnInit,OnChanges,
+SimpleChanges,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,
+AfterViewChecked,OnDestroy
+} from "@angular/core"
+
+
+export class ServerElementComponent IMPLEMENTS 
+Component,OnInit,OnChanges,SimpleChanges,DoCheck,
+AfterContentInit,AfterViewInit,AfterViewChecked,OnDestroy {  }
+
+
+
+ngOnChanges : Properties decorated with @Input.When these properties get changed, this function can be used to identify them.
+
+  This is the only hook which takes arguments. 
+  
+  ngOnChanges(changes : SimpleChanges) {
+console.log(changes);
+  }
+
+ngOnInit : Component(TS-objects) Initialization is done. This runs after the Constructor is Run.
+
+
+ngDoCheck : Called during every CHANGE DETECTION is run. This is run many times. e.g Button click or promise gave back data. When any property changes inside Template or in Component, this is hook executed on every checked.
+
+
+ngAfterContentInit : Called after content (ng-content) has been projected in view.
+
+
+ngAfterContentChecked : Called every time the projected content has been checked. Does CHANGE DETECTION.
+
+
+ngAfterViewInit : Called after the component's view and child views (HTML) has been initialized.
+
+
+ngAfterViewChecked : Called every time the view (and child views) have been checked. Does CHANGE DETECTION.
+
+
+ngOnDestroy : Called once the component is about be be destroyed. Object destroy and garbage collection to be done here.
+
+
+
+@ContentChild
+You can use ContentChild to get the first element or the directive matching the selector from the content DOM. If the content DOM changes, and a new child matches the selector, the property will be updated. Content queries are set before the ngAfterContentInit callback is called. Metadata Properties:
+
+selector - the directive type or the name used for querying.
+
+
+read - read a different token from the queried element.
+
+
+
+import {Component, ContentChild, Directive, Input} from '@angular/core';
+
+
+@Directive({selector: 'pane'})
+export class Pane {
+  @Input() id: string;
+}
+
+
+@Component({
+  selector: 'tab',
+  template: `
+    <div>pane: {{pane?.id}}</div> 
+  `
+})
+export class Tab {
+  @ContentChild(Pane) pane: Pane;
+}
+
+
+@Component({
+  selector: 'example-app',
+  template: `
+    <tab>
+      <pane id="1" *ngIf="shouldShow"></pane>
+      <pane id="2" *ngIf="!shouldShow"></pane>
+    </tab>
+    
+    <button (click)="toggle()">Toggle</button>
+  `,
+})
+export class ContentChildComp {
+  shouldShow = true;
+
+
+  toggle() { this.shouldShow = !this.shouldShow; }
+}
+
+
+ElementRef
+The ElementRef gives the directive direct access to the DOM element upon which it’s attached
+
+
+import { ElementRef,Renderer } from '@angular/core';
+
+export class CardHoverDirective {
+  constructor(private el: ElementRef,
+              private renderer: Renderer) { 
+    renderer.setElementStyle(el.nativeElement, 'backgroundColor', 'gray'); 
+  }
+}
+
+
+Renderer2
+We should not directly access elements and change its properties. Use 'Renderer2'. 
+Angular has been built from the ground up to work in a number of different environments, including server side via node and on a native mobile device. 
+
+
+So the Angular team has provided a platform independent way of setting properties on our elements via something called a Renderer.
+
+
+import {ElementRef, Renderer2} from '@angular/core';
+
+
+export BetterHighliter implements OnInit {
+constructor(private eleRef: ElementRef, private renderer : Renderer2 ) {    this.renderer.setStyle(this.eleRef.nativeElement,'backgroundColor','green');
+this.renderer.setElementStyle(eleRef.nativeElement, 'backgroundColor', 'gray');
+}
+ }
+Code : http://plnkr.co/edit/Aj5s1koYdGKlK5vkyGCn?p=preview 
+Help : https://angular.io/api/core/Renderer2
+
+
+@HostListener
+Reacting to events occurring on element i.e. directive using @HostListner Decorator.
+It is Function decorator and takes parameter of type Event e.g.mouseover,mouseenter,
+mouseleave.
+
+
+import {ElementRef,Renderer2,HostListener} from '@angular/core';
+
+
+export ListenEventsOnDirective implements OnInit {
+ constructor(private eleRef: ElementRef, private renderer : Renderer2) {
+}
+
+
+ @HostListener('mouseenter') onMouseHover() {
+  this.renderer.setStyle( this.eleRef.nativeElement,
+'backgroundColor',
+'green');
+   let part = this.el.nativeElement.querySelector('.card-text');
+   this.renderer.setElementStyle(part, 'display', 'block');
+ }
+ 
+ @HostListener('mouseleave') onMouseLeave() {
+this.renderer.setStyle( this.eleRef.nativeElement,
+'backgroundColor',
+'transparent');
+ }
+}
+
+
+
+@HostBinding 
+Used to set properties of the element i.e. on directive. This takes the property on the element as argument. e.g. style/class property.
+
+
+import {ElementRef,Renderer2,HostListener,HostBinding} from '@angular/core';
+
+
+export ListenEventsOnDirective implements OnInit {
+ 
+ @HostBinding('style.backgroundColor') backgroundColor : string = 'transparent'
+ 
+ constructor(private eleRef : ElementRef, private renderer : Renderer2) {
+ }
+ 
+ @HostListener('mouseenter') onMouseHover() {
+  this.backgroundColor = 'blue';
+ }
+ 
+ @HostListener('mouseleave') onMouseLeave() {
+  this.backgroundColor = 'green';
+ }
+}
+Another example:
+import { HostBinding } from '@angular/core'
+
+export class CardHoverDirective {
+  @HostBinding('class.card-outline-primary') private ishovering: boolean; 
+
+  constructor(private el: ElementRef,private renderer: Renderer) {
+ // renderer.setElementStyle(el.nativeElement, 'backgroundColor', 'gray');
+  }
+
+  @HostListener('mouseover') onMouseOver() {
+    let part = this.el.nativeElement.querySelector('.card-text');
+    this.renderer.setElementStyle(part, 'display', 'block');
+    this.ishovering = true;
+  }
+
+  @HostListener('mouseout') onMouseOut() {
+    let part = this.el.nativeElement.querySelector('.card-text');
+    this.renderer.setElementStyle(part, 'display', 'none');
+    this.ishovering = false;
+  }
+}
+By using the @HostListener and @HostBinding decorators we can both listen to output events from our host element and also bind to input properties on our host element as well.
+ngTemplate 
+Understanding * in structural directive:
+<div *ngIf="!onlyOdd"></div>
+
+
+<ng-template [ngIf]="!onlyOdd"> </ng-template>
+Note : See also 92 video for adding our own structural directive
+
+
+ngSwitch
+ngSwitch has to be used as Property binding.
+In Ts:
+public value :number;
+
+
+<div [ngSwitch]="value">
+ <div *ngSwitchCase="5"> Value is 5</div>
+ <div *ngSwitchCase="10"> Value is 10</div>
+ <div *ngSwitchCase="100"> Value is 100</div> 
+ <div *ngSwitchDefault="default"> Value is default</div>
+</div>
+Note : should use * for case variables.
+
+
+Pipes
+Allows to format data in template HTML as per business needs. Below are built-in pipes in angular: (Click to see details)
+
+CurrencyPipe
+
+
+{{ 1234.56 | currency:'CAD' }}
+
+
+{{ 1234.56 | currency:'CAD':'code'}}
+
+
+{{ 1234.56 | currency:'CAD':'symbol'}}
+
+
+{{ 1234.56 | currency:'CAD':'symbol-narrow'}}
+
+
+DatePipe
+
+
+<p>{{ dateVal | date: 'shortTime' }}</p>
+
+
+<p>{{ dateVal | date: 'fullDate' }}</p>
+
+
+<p>{{ dateVal | date: 'd/M/y' }}</p>
+
+
+DecimalPipe
+
+
+<p>{{ 3.14159265 | number: '3.1-2' }}</p>
+
+
+<p>{{ 3.14159265 | number: '1.4-4' }}</p>
+
+
+JsonPipe
+
+
+<p>{{ jsonVal | json }}</p>
+
+
+LowerCasePipe
+
+
+<p>{{ 'SanToSh' | lowercase }}</p>
+
+
+UpperCasePipe 
+
+
+<p>{{ 'SanTosh' | uppercase }}</p>
+
+
+PercentPipe
+
+
+<p>{{ 0.123456 | percent }}</p>
+
+
+SlicePipe : This returns slice of an array.The first argument is the start index of the slice and the second argument is the end index. 
+
+
+<p>{{ [1,2,3,4,5,6] | slice:1:3 }}</p>
+
+
+AsyncPipe : This pipe accepts an observable or a promise and lets us render the output of an observable or promise without having to call then or subscribe.
+
+
+http://plnkr.co/edit/gHIalfn10CfocBwCE6UG?p=preview
+
+
+
+Code : http://plnkr.co/edit/UG4SwlJ0DQEGjkhbbQz9?p=preview
+
+
+Services
+Video 96 - sample code available.
+Used to Communicate between components.
+In Service :
+export class LoggerService {
+ LogToConsole (status : string) {
+  console.log(‘Logging to console’+ status);
+ }
+}
+
+
+In Component :
+Import (LoggerService) from ‘service.ts’
+
+
+Var objService = New LoggerService();
+objService.LogToConsole (‘Started Logging)
+
+
+Note : Never do as per above way of creating object for service.
+
+
+Use Angular’s Dependency Injector. It is class to depend on. Use provider which is array in component which informs angular to get that service and instantiate it.
+
+
+In Component :
+Import (LoggerService) from ‘service.ts’
+
+
+@Component({
+ Selector : ‘’,
+ templateUrl : ‘’,
+ styleUrls : [],
+ Providers : [LoggerService]
+})
+
+
+export class SomeComponent {
+ constructor(private objService : LoggerService) {
+}
+
+
+SomeMethod () {
+ this.objService.LogToConsole(‘Logging from service !!’);
+}
+}
+Hierarchical Injector: (video 101)
+Services can be injected at various levels.
+
+In AppModule : Then, same instance of service is available across application-wide.
+
+
+In AppComponent : Then, same instance of service is available for all Components (but not for other services).
+
+
+In Any other component : same instance of service is available across that component and its child components.
+
+
+
+Just remove form inner components Providers array and provide in AppModule / AppComponent providers array.
+
+
+@Injectable :Use this when injecting a service inside another service. Add this decorator in service where you want to inject another service. LogginService in injected into AccountService.
+import { catchError, map, tap } from 'rxjs/operators';
+
+
+getHeroes (): Observable<Hero[]> {
+  return this.http.get<Hero[]>(this.heroesUrl)
+    .pipe(
+      catchError(this.handleError('getHeroes', []))
+    );
+}
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+
+Routes
+In ‘app.module.ts’, we define routes. It takes array of routes to be defined in app.
+Map path with component while defining route. Import RouterModule.forRoot().
+With this RouterModule.forRoot(appRoutes), all routes get registered.
+
+
+In Ts:
+Import { Routes, RouterModule } from ‘@angular/router’; 
+
+
+Const appRoutes : Routes = [
+  {path: ‘’, component : ‘HomeComponent’},
+ {path: ‘users’, component : ‘UsersComponent’},
+  {path: ‘servers’, component : ‘ServersComponent’}
+];
+@NgModule({
+ Imports : [
+ FormsModule,
+ BrowserModule,
+ HttpModule,
+ReactiveFormsModule,
+RouterModule.forRoot(appRoutes)
+]
+})
+
+
+export class AppComponent {
+}
+
+
+In Html :
+Instead of registering all components as below :
+<home-component></home-component>
+<user-component></user-component>
+<servers-component></servers-component>
+
+
+Use route outlet provided by Angular:
+<router-outlet></router-outlet>
+Here angular loads the component by replacing above.
+In Htmls file, don't use ‘href’ (as shown below) as it will reload the page and this is not SPA behaviour.
+ <a href=’/’>Home</a>
+ <a href=’/user’>User</a>
+ <a href=’/servers’>Servers</a>
+Instead use, ‘routerLink’ directive, 
+<a routerLink=’/’>Home</a>
+ <a routerLink=’user’>User</a>
+ <a [routerLink]=”servers”>Servers</a>
+
+
+RouterLink 
+Use routerLink as property in template to navigate in Html. RouterLinkActiveOptions : this highlights the home tab only once. ‘routerLinkActive’ also has to be used as property binding.
+
+
+<a [routerLinkActive]=”active” 
+routerLinkActiveOptions=”{exact : true}” 
+routerLink=’/’>Home
+</a>
+ <a routerLinkActive=”active” [routerLink]=[’user’]>User</a>
+ <a routerLinkActive=”active” [routerLink]=[’servers’]>Servers</a>
+ 
+router.navigate
+Navigate from one component to another by using ‘this.router.navigate’.
+
+
+Import {Router, ActivatedRoute} from ‘@angular/route’;
+
+
+export class AppComponent {
+ constructor(private router : Router, private route : ActivatedRoute) {  
+}
+onClick() {
+ this.router.navigate([‘/servers’], {relativeTo : this.route });
+}
+}
+
+
+Pass Route Parms
+Use colon with the variable, through which you can read/pass the value in ‘app.module.ts’
+{path: ‘users / : id’, component : ‘UsersComponent’},
+
+
+Read Route Parms
+Using ActivatedRoute to get current route’s params in ts.
+
+
+In app.module.ts :
+{path: ‘users / : id / : name’, component : ‘UsersComponent’},
+Use ActivatedRoute to get route params.
+export class AppComponent {
+user : {id : number, name : string};
+constructor(private route : ActivatedRoute) { 
+}
+
+
+ ngOnInit() {
+ this.user = {
+   Id : this.route.snapshot.parms[‘id’],
+   name : this.route.snapshot.parms[‘name’]
+       }
+}
+}
+
+
+Read Route Params Reactively
+<a routeLink=”[ ‘/users’, 10, anna]”></a>
+this.route.params is observable.
+Observables : Used to work with async tasks. (3rd party lib)
+
+
+Import {Router, ActivatedRoute, Params} from ‘@angular/route’;
+this.route.params.subscribe((params : Params) => {
+ this.user.id = parms[‘id’];
+ this.user.name = parms[‘name’];
+})
+
+
+Note : Mainly used to get informed if there is any change in route params.
+
+ Child Routes
+
+
+In Html:
+<h1>Artist</h1>
+<p>
+  <a [routerLink]="['tracks']">Tracks</a> |
+  <a [routerLink]="['albums']">Albums</a>
+</p>
+
+
+In Route:
+const routes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'find', redirectTo: 'search'},
+  {path: 'home', component: HomeComponent},
+  {path: 'search', component: SearchComponent},
+  {
+    path: 'artist/:artistId',
+    component: ArtistComponent,
+    children: [
+      {path: '', redirectTo: 'tracks'}, 
+      {path: 'tracks', component: ArtistTrackListComponent}, 
+      {path: 'albums', component: ArtistAlbumListComponent}, 
+    ]
+  },
+  {path: '**', component: HomeComponent}
+];
+redirectTo & Catch All Routes
+const routes:Routes = [
+ {path: '', redirectTo: 'home', pathMatch: 'full'}, 
+ {path: 'find', redirectTo: 'search'}, 
+ {path: 'home', component: HomeComponent},
+ {path: 'search', component: SearchComponent},
+{path: '**', component: HomeComponent}
+];
+
+
+Note: use ** to catch any wrong routes provided in URL. Any wrong url, user will be navigated to home component.
+
+
+Route Guards
+Use colon with the variable, 
+
+
+Observables & Subscription(RxJs)
+Observables are not destroyed if component is destroyed. They stay in memory.
+They have to be destroyed manually using ‘onDestroy’ life cycle hook of Angular.
+
+
+Import { Params,ActivatedRoute} from ‘@angular/router’;
+Import { Subscription } from ‘rxjs/subscription’;
+
+
+export class UserComponent implements OnInit, OnDestroy {
+ user  : {id : number, name : string};
+paramsSubscription : Subscription; 
+
+
+constructor(private route : ActivatedRoute) { }
+
+
+ ngOnInit() {
+  this.user = {
+   Id : this.route.snapshot.parms[‘id’],
+   name : this.route.snapshot.parms[‘name’]
+       }
+  this.paramsSubscription = this.route.params.subscribe( 
+(params : Params)=>         {
+   this.user.id = params[‘id’];
+   this.user.name = params[‘name’];
+});
+}
+
+
+ngOnDestroy() {
+ this.paramsSubscription.unscribe();
+}
+}
+
+
+Query Params and Fragments
+<a 
+[routerLink] = ”[ ‘/servers’, 5, ‘edit’ ]”
+ [queryParams] = “{ allowEdit : ‘1’ }”
+fragment = “loading”>
+</a>
+
+
+In TS
+this.router.nagivate([ ‘/servers’,id,’edit’ ],{ queryParams });
+
+ Observables
+Its is data source. Object from rxjs. Observable pattern. Timeline contains events emitted. Contains Observable and Observer.Angular is the sender i.e. observable. 
+Observable : Emit data by button click, http service, Trigger in code.
+ It might emit data / error / might get completed.
+Observer : Subscribe function, 
+
+Handle data
+
+
+Handle error
+
+
+Handle completion
+
+Used to handle Async tasks.Don’t want to wait for response. Something like callbacks / promises.
+Note : ‘route.params’ is async object. ( this is reading part - subscribe method)
+Subscribe : This function takes 3 params : data handling function, error function, completion function. 
+
+
+Creating Observable
+Import { Observable } from ‘rxjs/observable’
+ ngOnInit () {
+  const myNumbers = Observable.interval(1000);
+
+
+  myNumbers.subscribe(
+   (num : Number) => {
+    console.log(num);
+}
+)
+}
+
+
+Creating Observer
+Import {Observable} from ‘rxjs/Observable’;
+Import ‘rxjs/Rx’;
+Import {Observer} from ‘rxjs/Observer’;
+Import {Subscription} from ‘rxjs/Subscription’;
+
+
+Use Create method to manually create Observer.
+Use Next method for pushing data package.
+
+
+ mySubscription : Subscription;
+
+
+const myObservable = Observable.create( (observer : Observer<string> ) = > {
+ setTimeout( () => {
+ observer.next(‘First Package’);
+},2000);
+ setTimeout( () => {
+ observer.next(Second Package’);
+},2000);
+ setTimeout( () => {
+ observer.complete();
+},2000);
+ setTimeout( () => {
+ observer.next(‘Last Package’);
+},2000);
+});
+
+
+this.mySubscription = myObservable.subscribe(
+(data : string) => {console.log(data);},
+(error : string) => {console.log(error);},
+(data : string) => {console.log(data);},
+);
+
+
+Observable stays with active subscription. Hence implement OnDestroy. So to do that we need to store the subscriptions in local variables and then destroy those local variables.
+ ngOnDestroy() {
+  this.mySubscription.Unsubscribe();
+}
+Learn more from : https://reactivex.io/rxjs/
+
+
+Subject
+Its is like observable. It is Observable and Observer at a same time. Video 164 vimp.
+Import {Subject} from ‘rxjs/Subject’;
+Use this to pass and listen to data.
+
+
+Template Driven Forms
+Template driven and Reactive Forms. We don't submit form to server as we will be doing SPA. Hence we don't also provide route action / method type : post
+Template driven : 
+ <form (ngSubmit)=”onSubmit(f)” #f=’ngForm’ >
+  <input type=”text” 
+id=”username” 
+name=”username”
+ngModel
+/>
+ </form>
+Note : Use onSubmit to submit Angular Form.
+ Use local template ref variable to get form values by reading from ngForm.
+
+
+In TS:
+ import {} from ‘@angular/forms’;
+
+
+ onSubmit(form : NgForm) {
+console.log(form.value);   // This contains all form values.
+}
+
+
+Form State
+Control type : FormControl (provided by angular)
+Dirty : True : We changed form in form (type into input fields)
+Pristine : True if user hasn't changed any form controls.
+Valid : whether form is valid or not (with validations)
+
+Forms using @ViewChild
+import {ViewChild, ElementRef} from "@angular/core";
+Note : Here, template reference variable is of type NgForm.
+
+
+In html :
+ <form (ngSubmit)=”onSubmit(f)” #f=”ngForm”>
+<input type="text" name=”username”>
+<button (click)="onAddServer()" ></button>
+ </form>
+
+
+In TS:
+export class AppComponent {
+ @ViewChild(f) signUpForm: NgForm;
+ 
+ onAddServer() {
+  console.log(this.signUpForm);
+ }
+}
+
+
+Pending (template driven forms)
+Video 177 to 186
+
+
+Reactive Forms
+Build forms using TS code. Below are Reactive Forms Directives to be used:
+
+formGroup
+
+
+formControl
+
+
+formControlName
+
+
+formGroupName
+
+
+formArrayName
+
+
+
+In app.module.ts:
+import { ReactiveFormsModule } from ‘@angular/forms’
+@NgModule({
+ Import : [
+ReactiveFormsModule
+]
+})
+
+
+In app.component.ts
+import { FormGroup } from ‘@angular/forms’;
+export class AppComponent implements OnInit {
+ signUpForm : FormGroup 
+ ngOnInit() {
+  this.signUpForm = new FormGroup(); // Object contains form controls
+}
+}
+
+
+<form [formGroup]=’signUpForm’ (ngSubmit)=’onSubmit()’></form>
+
+
+Note : 
+
+formGroup directive to be used as Property Binding.
+
+
+FormGroup() takes object i.e. form controls. FormGroup contains FormControls.
+
+
+
+FormGroup and FormControls
+import { FormGroup, FormControl } from ‘@angular/forms’;
+
+
+export class AppComponent implements OnInit {
+ genderList : [‘Male’,’Female’];
+
+
+ signUpForm : FormGroup;
+ 
+ ngOnInit() {
+  this.signUpForm = new FormGroup({
+   ‘userName’ : new FormControl(null),
+   ‘email’ : new FormControl(null),
+   ‘gender’ : new FormControl(‘Male’),
+});
+}
+
+
+onSubmit() {
+ console.log(this.signUpForm);
+ console.log(this.signUpForm.value);
+}
+}
+
+
+In Html:
+With help of property binding, tell angular not to use its default FormGroup, instead use my (TS driven FormGroup).
+Note: ‘signUpForm’ is the property of type FormGroup we declared in TS file. 
+ Use ‘ngSubmit’ on Form to submit the form.
+
+
+ <form [formGroup]=’signUpForm’ (ngSubmit)=’onSubmit()’>
+  <input type=’text’ 
+id=’username’ 
+formControlName=’username’/>
+
+
+  <input type=’text’ 
+id=’email’ 
+formControlName=’email’ />
+
+
+  <div *ngFor=’let gender for genderList’>
+  <input type=’radio’
+ value=’gender’ 
+formControlName=’gender’/> {{gender}}
+ </div>
+ <form>
+
+
+Form Validations
+Use Validators.
+import { FormGroup, FormControl, Validators } from ‘@angular/forms’;
+export class AppComponent implements OnInit {
+ genderList : [‘Male’,’Female’];
+ signUpForm : FormGroup;
+ 
+ ngOnInit() {
+  this.signUpForm = new FormGroup({
+   ‘userName’ : new FormControl(null,Validators.required),
+   ‘email’ : new FormControl(null, [Validators.required, Validators.email])
+   ‘gender’ : new FormControl(‘Male’),
+});
+}
+
+
+onSubmit() { console.log(this.signUpForm);
+ console.log(this.signUpForm.value);}}
+Error messages
+Use signUpForm.get() to get control state for doing validations.
+
+
+<form [formGroup]=’signUpForm’ (ngSubmit)=’onSubmit()’>
+  <input type=’text’ id=’username’ formControlName=’username’/>
+<span
+*ngIf=”!signUpForm.get(‘username’).valid && signUpForm.get(‘username’).touched”>
+Please enter valid UserName
+</span>
+ <form>
+
+
+
+FormGroup-FormArray
+Grouping controls and accessing it using ‘formGroup.get’ method.
+Import {FormArray}
+
+
+ngOnInit() {
+ this.signUpForm = new FormGroup({
+  ‘userData’ : new FormGroup({
+   ‘userData’ : new FormControl(null,Validators.required),
+  ‘email’ : new FormControl(null, [Validators.email, Validators.required]),
+}) 
+}),
+‘gender’ : new FormControl(‘male’),
+‘hobbies’ : New FormArray([])
+}
+
+
+addHobbies() {
+ const control = new FormControl(null,Validator.required);
+(<this.signUpForm.get(‘hobbies’).control>).push(control);
+}
+
+
+<form [formGroup]=’signupForm’ (ngSubmit)=”onSubmit()”>
+ <div formGroupName=’userData’>
+  <input
+  type=’text’
+  id=’username’
+  formControlName=’username’ />
+  <span *ngIf=’signUpForm.get(‘username’).valid 
+&& signUpForm.get(‘username’).touched>  
+Please enter valid username. 
+</span>
+ </div>
+ <div *ngFor=’let gender of genders’>
+  <input
+  type=’radio’
+  id=’gender’
+  formControlName=’gender’
+  [value]=’gender’ />
+  {{gender}}
+ </div>
+ <div formArrayName=’hobbies’>
+  <input type=’button’ (onclick)=’addHobbies()’ />
+<div *ngFor=’let hobby of signUpForm.get(‘hobbies’).controls; let i=index’>
+  <input 
+  type=’text’
+  id=’hobby’
+  formControlName=’i’
+  [value]=’hobby’’ />
+ </div>
+</div>
+</form>
+
+
+SetValue and PatchValue 
+this.signUpForm.setValue({
+ userName :  new FormControl(null,Validators.required),
+ ‘email : new FormControl(null, [Validators.required, Validators.email])
+ ‘gender’ : new FormControl(‘Male’),
+});
+
+
+This is used to set value of particular control out of all controls:
+this.signUpForm.patchValue({  userName :  new FormControl(null,Validators.required),
+});
+
+
+HTTP
+Allows us to make a number of calls to external HTTP APIs. It has own HTTP client library. 
+Async operations for getting response can be done by using Promises(TypeScript & ES6) or by Observables(RxJS and Observables). 
+
+
+Example:
+import {NgModule, Component} from '@angular/core';
+import {HttpModule, Http, URLSearchParams, Headers, RequestOptions} from '@angular/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/Rx';
+
+@Component({
+  selector: 'app',
+  template: `
+ <div class="row">
+  <div class="m-t-1">
+   <button class="btn btn-primary" (click)="doGET()">GET</button>
+   <button class="btn btn-primary" (click)="doPOST()">POST</button>
+   <button class="btn btn-primary" (click)="doPUT()">PUT</button>
+   <button class="btn btn-primary" (click)="doDELETE()">DELETE</button>
+ </div>
+</div>
+
+<div class="row">
+  <div class="m-t-1">
+   <button class="btn btn-secondary" (click)="doGETAsPromise()">As Promise</button>
+   <button class="btn btn-secondary" (click)="doGETAsPromiseError()">Error as Promise</button>
+   <button class="btn btn-secondary" (click)="doGETAsObservableError()">Error as Observable</button>
+ </div>
+</div>
+
+<div class="row">
+  <div class="m-t-1">
+   <button class="btn btn-danger" (click)="doGETWithHeaders()">With Headers</button>
+ </div>
+</div>
+ `
+})
+
+export class AppComponent {
+  apiRoot: string = "http://httpbin.org";
+
+  constructor(private http: Http) {
+  }
+
+  doGET() {
+    console.log("GET");
+    let url = `${this.apiRoot}/get`;
+    let search = new URLSearchParams();
+    search.set('foo', 'moo');
+    search.set('limit', 25);
+    this.http.get(url, {search}).subscribe(res => console.log(res.json()));
+  }
+
+  doPOST() {
+    console.log("POST");
+    let url = `${this.apiRoot}/post`;
+    let search = new URLSearchParams();
+    search.set('foo', 'moo');
+    search.set('limit', 25);
+    this.http.post(url, {moo: "foo", goo: "loo"}, {search}).subscribe(res => console.log(res.json()));
+  }
+
+  doPUT() {
+    console.log("PUT");
+    let url = `${this.apiRoot}/put`;
+    let search = new URLSearchParams();
+    search.set('foo', 'moo');
+    search.set('limit', 25);
+    this.http.put(url, {moo: "foo", goo: "loo"}, {search}).subscribe(res => console.log(res.json()));
+  }
+
+  doDELETE() {
+    console.log("DELETE");
+    let url = `${this.apiRoot}/delete`;
+    let search = new URLSearchParams();
+    search.set('foo', 'moo');
+    search.set('limit', 25);
+    this.http.delete(url, {search}).subscribe(res => console.log(res.json()));
+  }
+
+  doGETAsPromise() {
+    console.log("GET AS PROMISE");
+    let url = `${this.apiRoot}/get`;
+    this.http.get(url).toPromise().then(res => console.log(res.json()));
+  }
+
+  doGETAsPromiseError() {
+    console.log("GET AS PROMISE ERROR");
+    let url = `${this.apiRoot}/post`;
+    this.http.get(url)
+        .toPromise()
+        .then(
+            res => console.log(res.json()),
+            msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
+        );
+  }
+
+  doGETAsObservableError() {
+    console.log("GET AS OBSERVABLE ERROR");
+    let url = `${this.apiRoot}/post`;
+    this.http.get(url).subscribe(
+        res => console.log(res.json()),
+        msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
+    );
+  }
+
+  doGETWithHeaders() {
+    console.log("GET WITH HEADERS");
+    let headers: Headers = new Headers();
+    headers.append('Authorization', btoa('username:password'));
+    let opts: RequestOptions = new RequestOptions();
+    opts.headers = headers;
+
+    let url = `${this.apiRoot}/get`;
+    this.http.get(url, opts).subscribe(
+        res => console.log(res.json()),
+        msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
+    );
+  }
+}
+
+@NgModule({
+  imports: [BrowserModule, HttpModule],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
+})
+class AppModule {
+
+}
+platformBrowserDynamic().bootstrapModule(AppModule);
